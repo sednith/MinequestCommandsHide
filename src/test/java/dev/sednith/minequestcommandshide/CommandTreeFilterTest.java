@@ -61,18 +61,34 @@ class CommandTreeFilterTest {
     }
 
     @Test
-    void removesNamespaceEntriesWhenPrefixDisabled() {
-        RootCommandNode<Object> root = tree("msg", "minecraft:tp");
+    void removesDuplicateNamespaceEntriesWhenPrefixEnabled() {
+        RootCommandNode<Object> root = tree("tp", "minecraft:tp");
 
         Set<String> visible = CommandTreeFilter.filter(
                 root,
-                name -> Set.of("msg", "tp").contains(name),
+                name -> Set.of("tp").contains(name),
                 true,
                 name -> false
         );
 
-        assertEquals(Set.of("msg"), visible);
+        assertEquals(Set.of("tp"), visible);
+        assertTrue(childNames(root).contains("tp"));
         assertFalse(childNames(root).contains("minecraft:tp"));
+    }
+
+    @Test
+    void keepsAllowedNamespaceEntryWithoutBareTwin() {
+        RootCommandNode<Object> root = tree("minecraft:tp");
+
+        Set<String> visible = CommandTreeFilter.filter(
+                root,
+                name -> Set.of("tp").contains(name),
+                true,
+                name -> false
+        );
+
+        assertEquals(Set.of("tp"), visible);
+        assertTrue(childNames(root).contains("minecraft:tp"));
     }
 
     @Test

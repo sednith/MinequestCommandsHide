@@ -27,20 +27,31 @@ public final class CommandTreeFilter {
             String rawName = node.getName();
             String normalized = CommandName.normalize(rawName);
 
-            if (removePluginPrefix && rawName.indexOf(':') >= 0) {
+            if (!alwaysKeep.test(normalized) && !allowed.test(normalized)) {
                 root.getChildren().remove(node);
                 continue;
             }
 
-            if (alwaysKeep.test(normalized) || allowed.test(normalized)) {
-                if (!normalized.isEmpty()) {
-                    visible.add(normalized);
-                }
-            } else {
+            // plugin:command — дубль обычной команды, убираем, если рядом есть обычный узел.
+            if (removePluginPrefix && rawName.indexOf(':') >= 0 && hasBareSibling(root, normalized)) {
                 root.getChildren().remove(node);
+                continue;
+            }
+
+            if (!normalized.isEmpty()) {
+                visible.add(normalized);
             }
         }
         return visible;
+    }
+
+    private static boolean hasBareSibling(RootCommandNode<?> root, String normalized) {
+        for (CommandNode<?> child : root.getChildren()) {
+            if (normalized.equals(child.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void filterSuggestions(List<String> suggestions, Predicate<String> allowed) {
