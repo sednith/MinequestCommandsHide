@@ -1,0 +1,11 @@
+.gradle/
+build/
+.idea/
+*.iml
+out/
+bin/
+.vscode/
+.kotlin/
+
+# Локально собранный артефакт в корне проекта
+/MinequestCommandsHide-*.jar
