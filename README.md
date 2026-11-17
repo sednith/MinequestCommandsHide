@@ -64,14 +64,10 @@ groups:
   default:
     commands: [discord, link, tell, msg, reply, when, inspect, list, sit, hints]
   player:
-    commands: [unlink]
-  minequestplus:
-    commands: [togglepm, togglechat, togglementions, server]
-  helper:
-    commands: [warning, kick, ban, coreprotect, co, tp, teleport, server, spectator, survival, invsee, endersee]
+    commands: [unlink, seed]
 ```
 
-- Ключ группы — имя группы в LuckPerms (`default`, `player`, `minequestplus`, `helper`, ...).
+- Ключ группы — имя группы в LuckPerms (`default`, `player`, ...), набор групп задаётся вручную.
 - Команды можно писать со слэшем, с namespace (`minecraft:msg`) или без — всё нормализуется.
 - Алиасы перечисляются явно: `msg`, `tell`, `reply` — разные команды.
 - В `whitelist` игроку доступно объединение команд всех его групп (включая наследованные) и `default`.

@@ -57,23 +57,4 @@ groups:
   player:
     commands:
       - 'unlink'
-  minequestplus:
-    commands:
-      - 'togglepm'
-      - 'togglechat'
-      - 'togglementions'
-      - 'server'
-  helper:
-    commands:
-      - 'warning'
-      - 'kick'
-      - 'ban'
-      - 'coreprotect'
-      - 'co'
-      - 'tp'
-      - 'teleport'
-      - 'server'
-      - 'spectator'
-      - 'survival'
-      - 'invsee'
-      - 'endersee'
+      - 'seed'
